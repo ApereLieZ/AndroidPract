@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNotice">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--ImageView to preview the selected image-->
+
+        <EditText
+            android:id="@+id/editTextNoticeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="@string/app_name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextNoticeDescription"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/app_name"
+            android:inputType="textMultiLine"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/buttonSelectImageNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:text="SELECT IMAGE"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageNotice"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="36dp"
+             />
+
+        <Button
+            android:id="@+id/noticeButton"
+            android:layout_width="174dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="make notice" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

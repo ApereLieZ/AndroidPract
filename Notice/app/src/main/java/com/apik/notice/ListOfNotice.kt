@@ -1,12 +1,17 @@
 package com.apik.notice
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.ButtonBarLayout
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListOfNotice : Fragment() {
 
@@ -18,6 +23,26 @@ class ListOfNotice : Fragment() {
     lateinit var imageId: ArrayList<Int>
     lateinit var title: ArrayList<String>
     lateinit var date: ArrayList<Int>
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+
+        val rootView = inflater.inflate(R.layout.fragment_list_of_notice, container, false)
+
+        val btn = rootView.findViewById<FloatingActionButton>(R.id.noticeCreatorBtn)
+
+        btn.setOnClickListener {
+            val intent = Intent(activity, CreateNotice::class.java)
+            startActivity(intent)
+        }
+
+        return rootView
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,10 +60,16 @@ class ListOfNotice : Fragment() {
         NoticeArray = arrayListOf()
 
         imageId = arrayListOf(
-            0, 1, 2, 3, 4, 5
+            0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5
         )
 
         title = arrayListOf(
+            "get it",
+            "get it",
+            "not this",
+            "buy milk",
+            "kill me",
+            "hello world",
             "get it",
             "get it",
             "not this",
@@ -48,10 +79,10 @@ class ListOfNotice : Fragment() {
         )
 
         date = arrayListOf(
-            1, 2, 3, 4, 5, 6
+            1, 2, 3, 4, 5, 6,1, 2, 3, 4, 5, 6
         )
 
-        for (i in 0..imageId.size) {
+        for (i in 0..imageId.size-1) {
             val notice = Notice(title[i], imageId[i], date[i])
             NoticeArray.add(notice)
         }

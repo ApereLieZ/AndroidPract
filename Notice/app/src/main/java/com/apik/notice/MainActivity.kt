@@ -1,9 +1,7 @@
 package com.apik.notice
 
-import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +10,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         replaceFragment(ListOfNotice())
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                Toast.makeText(this,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 
     private fun replaceFragment(homeFragment: Fragment){
