@@ -8,16 +8,35 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.ButtonBarLayout
+import androidx.fragment.app.FragmentTransaction
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+interface OnItemClickListener {
+    fun onItemClicked(position: Int, view: View)
+}
+
+fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
+    this.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener {
+        override fun onChildViewDetachedFromWindow(view: View) {
+            view?.setOnClickListener(null)
+        }
+
+        override fun onChildViewAttachedToWindow(view: View) {
+            view?.setOnClickListener {
+                val holder = getChildViewHolder(view)
+                onClickListener.onItemClicked(holder.adapterPosition, view)
+            }
+        }
+    })
+}
+
 class ListOfNotice : Fragment() {
 
     private lateinit var adapter: MainAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var NoticeArray: ArrayList<Notice>
 
 
     lateinit var imageId: ArrayList<Int>
@@ -42,49 +61,32 @@ class ListOfNotice : Fragment() {
         return rootView
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataInit()
-
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        adapter = MainAdapter(NoticeArray)
+        recyclerView.setHasFixedSize(false)
+
+        adapter = MainAdapter(NoticeData.noticeArray)
         recyclerView.adapter = adapter
+
+        recyclerView.addOnItemClickListener(object: OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                val itemDetails = NoticeDetails(NoticeData.noticeArray[position])
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.hide(this@ListOfNotice)
+                    ?.add(R.id.fragmentContainer, itemDetails)
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
     }
 
-    private fun dataInit() {
-        NoticeArray = arrayListOf()
 
-        imageId = arrayListOf(
-            0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5
-        )
-
-        title = arrayListOf(
-            "get it",
-            "get it",
-            "not this",
-            "buy milk",
-            "kill me",
-            "hello world",
-            "get it",
-            "get it",
-            "not this",
-            "buy milk",
-            "kill me",
-            "hello world"
-        )
-
-        date = arrayListOf(
-            1, 2, 3, 4, 5, 6,1, 2, 3, 4, 5, 6
-        )
-
-        for (i in 0..imageId.size-1) {
-            val notice = Notice(title[i], imageId[i], date[i])
-            NoticeArray.add(notice)
-        }
-    }
 }

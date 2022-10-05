@@ -1,7 +1,12 @@
 package com.apik.notice
 
-import java.time.LocalDateTime
-import java.util.Calendar
-import java.util.Date
+import android.text.Editable
+import android.net.Uri
+object NoticeData {
+    var noticeArray: ArrayList<Notice> = ArrayList()
+}
 
-data class Notice(var title: String, val image: Int, val date: Int)
+data class Notice(var title: Editable?,
+                  var description: Editable?,
+                  var date: String,
+                var imageURI: Uri? )
