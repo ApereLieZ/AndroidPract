@@ -9,4 +9,4 @@ object NoticeData {
 data class Notice(var title: Editable?,
                   var description: Editable?,
                   var date: String,
-                var imageURI: Uri? )
+                var image: Uri? )

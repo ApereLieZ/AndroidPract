@@ -1,5 +1,6 @@
 package com.apik.notice
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,7 @@ class MainAdapter(private val newList : ArrayList<Notice>): RecyclerView.Adapter
         val currentItem = newList[position]
         holder.date.text = currentItem.date
         holder.title.text = currentItem.title
-        holder.setImage(currentItem.imageURI)
+        holder.setImage(currentItem.image)
 
     }
     override fun getItemCount(): Int {
@@ -38,7 +39,6 @@ class MainAdapter(private val newList : ArrayList<Notice>): RecyclerView.Adapter
             else{
                 image.setImageURI(imageUri)
             }
-
         }
     }
 

@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.ButtonBarLayout
-import androidx.fragment.app.FragmentTransaction
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +52,7 @@ class ListOfNotice : Fragment() {
         val btn = rootView.findViewById<FloatingActionButton>(R.id.noticeCreatorBtn)
 
         btn.setOnClickListener {
-            val intent = Intent(activity, CreateNotice::class.java)
+            val intent = Intent(activity, CreateNoticeActivity::class.java)
             startActivity(intent)
         }
 
@@ -78,7 +76,7 @@ class ListOfNotice : Fragment() {
 
         recyclerView.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-                val itemDetails = NoticeDetails(NoticeData.noticeArray[position])
+                val itemDetails = NoticeDetailsActivity(NoticeData.noticeArray[position])
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.hide(this@ListOfNotice)
                     ?.add(R.id.fragmentContainer, itemDetails)

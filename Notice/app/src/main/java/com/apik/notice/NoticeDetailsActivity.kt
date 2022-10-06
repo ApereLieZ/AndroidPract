@@ -1,20 +1,15 @@
 package com.apik.notice
 
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 
 
-class NoticeDetails(var noticeDetails: Notice): Fragment() {
+class NoticeDetailsActivity(var noticeDetails: Notice): Fragment() {
 
     var title: TextView? = null
     var description: TextView? = null
@@ -33,15 +28,25 @@ class NoticeDetails(var noticeDetails: Notice): Fragment() {
         date = rootView.findViewById(R.id.detaileDate)
         return  rootView
     }
+    fun getGaleryPermission(){
+        requestPermissions(arrayOf("android.permission.WRITE_EXTERNAL_STORAGE"), 80)
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getGaleryPermission()
         title?.text = noticeDetails.title
         description?.text = noticeDetails.description
 
-        if(noticeDetails.imageURI != null){
-            image?.setImageURI(noticeDetails.imageURI)
+        val contentResolver = context?.contentResolver
+
+
+
+
+
+        if(noticeDetails.image != null){
+            image?.setImageURI(noticeDetails.image)
         }else{
             image?.setImageResource(R.drawable.ic_launcher_foreground)
         }
